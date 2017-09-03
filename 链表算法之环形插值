@@ -1,0 +1,29 @@
+/* 
+struct ListNode { 
+    int val; 
+    struct ListNode *next; 
+    ListNode(int x) : val(x), next(NULL) {} 
+};*/  
+class InsertValue {  
+public:  
+    ListNode* insert(vector<int> A, vector<int> nxt, int val) {  
+      vector<int> x=A;  
+        x.push_back(val);          //插入一个数  
+        sort(x.begin(),x.end());   //对其排序  
+        ListNode *head=NULL;  //头指针为空  
+        ListNode *pw=head;    //指向尾的指针  
+        for(int i=0;i<A.size()+1;i++)  
+            {  
+           ListNode *p=new ListNode(x[i]);  
+           if(head ==NULL)              //第一个值给链表的情况  
+                head = p,pw = p;  
+            else  
+            {  
+                pw->next = p;  
+                pw = p;  
+            }  
+        }  
+        return head;  
+    }  
+           
+};  
