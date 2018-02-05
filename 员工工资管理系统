@@ -1,0 +1,398 @@
+#include<iostream>  
+  
+#include<fstream>  
+#include<stdlib.h>  
+#include"guanli.h"  
+#include<conio.h>  
+#include <string.h>   
+using namespace std;  
+int main()  
+{  
+int  xuanze;  
+guanli yuangong;  
+guanli::LinkList L;  
+yuangong.creat(L);  
+yuangong.duqu(L);  
+while (1)  
+{  
+yuangong.zhujiemian();  
+cout << "              请输入===>：";  
+cin >> xuanze;  
+system("cls");  
+switch (xuanze)  
+{  
+case(1) : yuangong.ckxx(L); yuangong.back();system("cls"); break;//查看当前员工  
+case(5) : yuangong.xggz(L); yuangong.back(); system("cls"); break;//修改员工工资  
+case(2) : yuangong.lrxx(L); yuangong.back(); system("cls"); break;//录入新的员工  
+case(3) : yuangong.ckgz(L); yuangong.back(); system("cls"); break;//查看员工工资  
+case(4) : yuangong.czxx(L); yuangong.back(); system("cls"); break;//查找员工工资  
+case(7) : yuangong.gyzz(); yuangong.back(); system("cls"); break; //关于作者信息  
+case(6) : yuangong.scyg(L); yuangong.back(); system("cls"); break;//删除员工信息  
+case(8) : yuangong.xieru(L); exit(1);                                                    //退出系统  
+}  
+  
+}  
+  
+  
+}  
+  
+函数定义：  
+  
+#include<iostream>  
+#include <string>   
+#include<fstream>  
+#include"guanli.h"  
+#include<sstream>  
+using namespace std;  
+void guanli::zhujiemian()  
+{  
+cout << "                                                            " << endl;  
+cout << "                                                            " << endl;  
+cout << "                                                            " << endl;  
+cout << "                                                            " << endl;  
+cout << "                                                            " << endl;  
+cout << "                                                            " << endl;  
+cout << "                              ****************************************" << endl;  
+  
+  
+cout << "                              ****   欢迎使用此员工工资管理系统   ****" << endl;  
+cout << "                              ****          1.查看当前员工        ****" << endl;  
+cout << "                              ****          2.添加新的员工        ****" << endl;  
+cout << "                              ****          3.查看员工工资        ****" << endl;  
+cout << "                              ****          4.查找员工工资        ****" << endl;  
+cout << "                              ****          5.修改员工工资        ****" << endl;  
+cout << "                              ****          6.删除员工信息        ****" << endl;  
+cout << "                              ****          7.关于    作者        ****" << endl;  
+cout << "                              ****          8.退出    系统        ****" << endl;  
+cout << "                              ****************************************" << endl;  
+  
+  
+  
+  
+}  
+void guanli::ckxx(LinkList &v)  //查看当前员工  
+{  
+q = v->next;  
+cout<<"当前员工:"<<endl;  
+while (q != NULL)  
+{  
+cout << q->name << endl;  
+q = q->next;  
+}  
+}  
+void guanli::xggz(LinkList &v)  //修改员工工资  
+{  
+  
+  
+q = v;  
+q = q->next;  
+//cout << "姓名            工资" << endl;  
+//while (q != NULL)  
+//{  
+//cout << q->name << endl;  
+//q = q->next;  
+//}  
+cout << "请输入想要修改工资的员工姓名：";  
+cin >> fname;  
+cout << endl;  
+//cout << "进入循环前q->name为 " << q->name << endl;  
+while (strcmp(q->name, fname) != 0 && NULL != q->next)  
+{  
+q = q->next;  
+}  
+//cout << "循环后q->name为 " << q->name << endl;  
+//cout << "        fanme为 " << fname << endl;  
+  
+  
+if (strcmp(q->name, fname) == 0)  
+{  
+cout << "是否确认修改员工工资" << endl;  
+cout << "      1.确认" << endl;  
+cout << "      2.否" << endl;  
+cin >> a;  
+if (1 == a)  
+{  
+system("cls");  
+cout << "请输入修改后的工资" << endl;  
+cin >> q->gongzi;  
+system("cls");  
+cout << "修改成功！"<<endl;  
+}  
+else  
+{  
+system("cls");  
+cout << "您已经取消操作。" << endl;  
+}  
+}  
+else  
+{  
+cout << "无此员工！" << endl;  
+}  
+}  
+void guanli::gyzz()   //关于作者信息  
+{  
+cout << "                                                    " << endl;  
+cout << "                                                    " << endl;  
+cout << "                                                    " << endl;  
+cout << "                                                    " << endl;  
+cout << "                                                    " << endl;  
+cout << "                                                    " << endl;  
+cout << "                                                    " << endl;  
+cout << "                                                    " << endl;  
+cout << "                                                    " << endl;  
+cout <<"                               *****学院：理学与信息科学学院*****" << endl;  
+cout <<"                               *****  专业：信息与计算科学  *****" << endl;  
+cout <<"                               *****   姓名：******       *****" << endl;  
+cout <<"                               *****    学号：*******      *****" << endl;  
+}    
+void guanli::lrxx(LinkList &v)    //录入信息  
+{  
+  
+p = v;  
+int q=0,i;  
+cout << "请输入插入的员工个数:";  
+cin >> q;  
+for (i = 0; i < q; i++)  
+{  
+s= (LinkList)malloc(LEN);  
+cout << "请输入员工姓名:";  
+cin >> s->name;  
+s->gongzi=0;  
+s->next = p->next;        //将新结点插入到单链表中   
+p->next = s;  
+}  
+}  
+void guanli::ckgz(LinkList &v)   //查看员工工资  
+{  
+int num = 0;  
+q = v->next;  
+char m[10];  
+int i=0, j, t;  
+while (NULL != q)  
+{  
+  
+  
+temp.gongzi = q->gongzi;  
+strcpy(temp.name, q->name);  
+zong[i] = temp;  
+q = q->next;  
+i = i + 1;  
+num = num + 1;  
+  
+  
+}  
+for (j = 0; j < num; j++)  
+{  
+for (i = 0; i < num; i++)  
+{  
+if (zong[i].gongzi <zong[i + 1].gongzi)  
+{  
+t = zong[i].gongzi;  
+zong[i].gongzi = zong[i + 1].gongzi;  
+zong[i + 1].gongzi = t;  
+strcpy(m, zong[i].name);  
+strcpy(zong[i].name, zong[i+1].name);  
+strcpy(zong[i + 1].name, m);  
+}  
+else  
+{  
+}  
+}  
+}  
+cout << "姓名      工资" << endl;  
+for (i = 0; i <num; i++)  
+{  
+cout << zong[i].name << "       " << zong[i].gongzi << endl;  
+}  
+}  
+void guanli::czxx(LinkList &v)   //查找员工信息  
+{  
+  
+q = v;  
+q = q->next;  
+cout << "请输入员工姓名：";  
+cin >> fname;  
+cout << endl;  
+//cout << "进入循环前q->name为 "<<q->name<<endl;  
+while (strcmp(q->name,fname)!=0&& NULL != q->next)  
+{  
+q = q->next;  
+}  
+//cout << "循环后q->name为 "<<q->name << endl;  
+//cout << "        fanme为 "<<fname << endl;  
+  
+if (strcmp(q->name, fname)==0)  
+{  
+  
+cout << q->name << "     工资：" << q->gongzi << endl;  
+}  
+else  
+{  
+cout << "无此员工！" << endl;  
+}  
+  
+  
+  
+  
+}  
+void guanli::scyg(LinkList &v)  
+{  
+q = v;  
+q = q->next;  
+//cout << "姓名            工资" << endl;  
+//while (q != NULL)  
+//{  
+//cout << q->name << endl;  
+//q = q->next;  
+//}  
+cout << "请输入想要删除的员工姓名：";  
+cin >> fname;  
+cout << endl;  
+//cout << "进入循环前q->name为 " << q->name << endl;  
+while (strcmp(q->next->name, fname) != 0 && NULL != q->next)  
+{  
+q = q->next;  
+}  
+//cout << "循环后q->name为 " << q->name << endl;  
+//cout << "        fanme为 " << fname << endl;  
+s = q->next;  
+if (strcmp(q->next->name, fname) == 0)  
+{  
+cout << "是否确认删除员工信息" << endl;  
+cout << "      1.确认" << endl;  
+cout << "      2.否" << endl;  
+cin >> a;  
+if (1 == a)  
+{  
+q->next = q->next->next;  
+system("cls");  
+cout << "删除成功。" << endl;  
+}  
+else  
+{  
+system("cls");  
+cout << "您已经取消操作。" << endl;  
+}  
+}  
+else  
+{  
+cout << "无此员工！" << endl;  
+}  
+}  
+void guanli::creat(LinkList &v)   //函数开始生成一个单链表  
+{     
+v = (LinkList)malloc(LEN);   
+v->next = NULL;  
+}  
+void guanli::back()  
+{  
+  
+  
+cout << "===>按Enter键返回主菜单";  
+getchar();  
+getchar();  
+}  
+void guanli::xieru(LinkList &v)  
+{  
+int num = 0;  
+q = v->next;  
+while (NULL != q)  
+{  
+  
+  
+temp.gongzi = q->gongzi;  
+strcpy(temp.name, q->name);  
+zong[i] = temp;  
+q = q->next;  
+i = i + 1;  
+num = num + 1;  
+  
+  
+}  
+  
+  
+ofstream outfile("wo.txt", ios::out | ios::in | ios::binary | ios::trunc);  
+for (i = 0; i<num; i++)  
+{  
+outfile << zong[i].name<<"\r";  
+outfile << zong[i].gongzi << "\r\n";  
+}  
+outfile.close();  
+}  
+  
+  
+void guanli::duqu(LinkList &v) //  
+{  
+v = (LinkList)malloc(LEN);  
+v->next = NULL;  
+p = v;  
+int w=0;  
+ifstream infile("wo.txt");  
+string str;  
+for (i = 0; getline(infile, str) ; ++i)  
+{  
+istringstream instr(str);  
+instr >> str;  
+strcpy(zong[i].name, str.c_str());  
+instr >>zong[i].gongzi;  
+}  
+for (w = 0; w < i; w++)  
+{  
+s = (LinkList)malloc(LEN);  
+strcpy(s->name, zong[w].name);  
+s->gongzi = zong[w].gongzi;  
+s->next = p->next;          
+p->next = s;  
+}  
+  
+  
+  
+  
+infile.close();  
+ofstream outfile("wo.txt", ios::out | ios::in | ios::binary | ios::trunc);  
+outfile.close();  
+}  
+类与函数定义  
+  
+#include<iostream>  
+#include<stdlib.h>  
+#include <string>   
+#include<conio.h>  
+#include<fstream>  
+#include<sstream>  
+using namespace std;  
+#define LEN sizeof(worker)   //LEN是节点的容量  
+class guanli  
+{  
+public:  
+typedef struct shuju   //数据是一种类型。和struct一样  
+{  
+char name[10]  ;    //数据域  
+int  gongzi;  
+shuju *next;     //指向下一个节点的指针  
+}worker;               
+  
+  
+typedef worker *LinkList; //*LinkList与worker是一样的，只不过是为了突出前者是头指针  
+void zhujiemian();       //软件主界面  
+void xggz(LinkList &v);             //修改员工工资  
+void ckxx(LinkList &v);             //查看员工信息  
+void lrxx(LinkList &v);             //录入员工信息  
+void czxx(LinkList &v);             //查找员工信息  
+void ckgz(LinkList &v);             //查看员工工资  
+void scyg(LinkList &v);             //删除员工信息  
+void gyzz();                        //关于作者  
+void back();                        //返回主界面  
+void creat(LinkList &v);            //开始生成一个0节点的单链表  
+void xieru(LinkList &v);                          //写入文件     
+void duqu(LinkList &v);               //打开程序读取文件  
+private:  
+LinkList q;  
+int i=0 ;  
+LinkList p;  
+LinkList s;  
+struct worker zong[100];  
+struct shuju temp;  
+char fname[30];  
+int a, money;  
+}  
